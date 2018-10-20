@@ -53,7 +53,7 @@ void MergeSort::merging(int low, int mid, int high)
 		// Create a temp array, use it to contain sorted elements
 		// Then properly copy this array to arr
 
-		std::vector<int> temp(high - low + 1);
+		vector<int> temp(high - low + 1);
 		int i = low;
 		int j = mid + 1;
 		int iNow = 0;

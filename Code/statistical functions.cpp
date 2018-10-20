@@ -1,24 +1,24 @@
 ﻿#include "statistical functions.h"
 #include "RadixSort.h"
 
-static std::string resultFolder = "ThongKe";
-static std::string dataFolder = "DataBase";
+static string resultFolder = "ThongKe";
+static string dataFolder = "DataBase";
 
-void ghi_du_lieu(const BaseSorting& algorithm, size_t size, const std::string &state)
+void ghi_du_lieu(const BaseSorting& algorithm, size_t size, const string &state)
 {
-		std::string arrSize = std::to_string(size);
-		std::string file = state + std::string("_") + arrSize;
-		std::ofstream fWrite(dataFolder + std::string("\\") + file + std::string(".txt"));
+		string arrSize = std::to_string(size);
+		string file = state + string("_") + arrSize;
+		std::ofstream fWrite(dataFolder + string("\\") + file + string(".txt"));
 		fWrite << state << ", " << algorithm.length() << std::endl << std::endl;
 		fWrite << algorithm << std::endl;
 }
 
 
-void ghi_ket_qua(const BaseSorting& algorithm, const std::string& state, const long long &thoi_gian)
+void ghi_ket_qua(const BaseSorting& algorithm, const string& state, const long long &thoi_gian)
 {
-		std::string arrSize = std::to_string(algorithm.length());
-		std::string out = algorithm.name() + std::string("_") + state + std::string("_") + arrSize;
-		std::string path = resultFolder + std::string("\\") + algorithm.name() + std::string("\\") + out + std::string(".txt");
+		string arrSize = std::to_string(algorithm.length());
+		string out = algorithm.name() + string("_") + state + string("_") + arrSize;
+		string path = resultFolder + string("\\") + algorithm.name() + string("\\") + out + string(".txt");
 
 		std::ofstream fWrite(path);
 
@@ -28,7 +28,7 @@ void ghi_ket_qua(const BaseSorting& algorithm, const std::string& state, const l
 		return;
 }
 
-void xay_dung_csdl(const std::vector<std::string> &states, const std::vector<std::size_t> &sizes)
+void xay_dung_csdl(const vector<string> &states, const vector<std::size_t> &sizes)
 {
 		if (states.empty() || sizes.empty())
 				throw std::invalid_argument("xay_dung_csdl()");
@@ -43,31 +43,28 @@ void xay_dung_csdl(const std::vector<std::string> &states, const std::vector<std
 						if (states[j] == states[0])
 						{
 								sample.increase(-(int)(size / 2));
-								ghi_du_lieu(sample, size, states[j]);
 						}
 						else if (states[j] == states[1])
 						{
 								sample.decrease(size / 2);
-								ghi_du_lieu(sample, size, states[j]);
 						}
 						else if (states[j] == states[2])
 						{
-								sample.random(-(int)((float)size*1.5f), (int)((float)size*1.5f));
-								ghi_du_lieu(sample, size, states[j]);
+								sample.random(-(int)((float)size*2.0f), (int)((float)size*2.0f));
 						}
 						else
 						{
-								sample.random(-(int)((float)size*1.5f), (int)((float)size*1.5f));
+								sample.random(-(int)((float)size*2.0f), (int)((float)size*2.0f));
 								sample.sort(78);
-								ghi_du_lieu(sample, size, states[j]);
 						}
+						ghi_du_lieu(sample, size, states[j]);
 				}
 
 		}
 		//-----------------------------------------------------------
 }
 
-void thong_ke(const std::vector<BaseSorting*>& vecAlgorithm, const std::vector<std::string>& vecStates, const std::vector<std::size_t>& vecSizes)
+void thong_ke(const vector<BaseSorting*>& vecAlgorithm, const vector<string>& vecStates, const vector<std::size_t>& vecSizes)
 {
 		using std::getline;
 
@@ -75,18 +72,14 @@ void thong_ke(const std::vector<BaseSorting*>& vecAlgorithm, const std::vector<s
 		if (vecAlgorithm.empty() || vecSizes.empty() || vecStates.empty())
 				throw std::invalid_argument("thong_ke()");
 
-		//std::string header = std::string("Input State, Input Size, SelectionSort, RadixSort, ") +
-		//		std::string("CoutingSort, QuickSort, MergeSort, ") +
-		//		std::string("HeapSort, InsertionSort, BubbleSort, InterchangeSort, ShakerSort");
-
-		std::string header = std::string("Input State, Input Size, ");
+		string header = string("Input State, Input Size, ");
 
 		for (const auto& algorithm : vecAlgorithm)
 		{
-				header += algorithm->name() + std::string(",");
+				header += algorithm->name() + string(",");
 		}
 
-		std::ofstream fWrite(resultFolder + std::string("\\") + std::string("Result.csv"));
+		std::ofstream fWrite(resultFolder + string("\\") + string("Result.csv"));
 		fWrite << header << std::endl;
 
 		for (const auto &size : vecSizes)
@@ -96,12 +89,12 @@ void thong_ke(const std::vector<BaseSorting*>& vecAlgorithm, const std::vector<s
 						fWrite << state << ", " << size << ", ";
 						for (const auto &algorithm : vecAlgorithm)
 						{
-								std::string file = algorithm->name() + std::string("_") +
-										state + std::string("_") +
+								string file = algorithm->name() + string("_") +
+										state + string("_") +
 										std::to_string(size);
-								std::string path = resultFolder + std::string("\\") +
-										algorithm->name() + std::string("\\") +
-										file + std::string(".txt");
+								string path = resultFolder + string("\\") +
+										algorithm->name() + string("\\") +
+										file + string(".txt");
 
 								std::ifstream fRead(path);
 								if (!fRead.is_open())
@@ -112,16 +105,16 @@ void thong_ke(const std::vector<BaseSorting*>& vecAlgorithm, const std::vector<s
 								// cấu trúc file đọc
 								// tên_thuật_toán, tình_trạng, kích_thước, thời_gian_xử_lí
 
-								std::string name;
+								string name;
 								getline(fRead, name, ',');
 
-								std::string state;
+								string state;
 								getline(fRead, state, ',');
 
-								std::string size;
+								string size;
 								getline(fRead, size, ',');
 
-								std::string elapsed;
+								string elapsed;
 								getline(fRead, elapsed);
 
 								// cấu trúc file Result.csv
@@ -135,22 +128,21 @@ void thong_ke(const std::vector<BaseSorting*>& vecAlgorithm, const std::vector<s
 
 }
 
-void chay_thuat_toan(const std::vector<BaseSorting*>& vecAlgorithm, const std::vector<std::string>& vecStates, const std::vector<std::size_t>& vecSizes)
+void chay_thuat_toan(const vector<BaseSorting*>& vecAlgorithm, const vector<string>& vecStates, const vector<std::size_t>& vecSizes)
 {
 		for (const auto& size : vecSizes)
 		{
 				std::cout << "size = " << size << std::endl;
 				for (const auto& state : vecStates)
 				{
-						std::cout << "state = " << state << std::endl;
-						std::string dataFile = state + std::string("_") + std::to_string(size);
-						std::string path = dataFolder + std::string("\\") + dataFile;
+						std::cout << "\tstate = " << state << std::endl;
+						string dataFile = state + string("_") + std::to_string(size);
+						string path = dataFolder + string("\\") + dataFile;
 						for (const auto& algorithm : vecAlgorithm)
 						{
 								*algorithm = RadixSort(path);
 								long long elapsed = algorithm->sort();
-								ghi_ket_qua(*algorithm, state, elapsed);
-								std::cout << "Algorithm = " << algorithm->name() << std::endl;
+								std::cout << "\t\tAlgorithm = " << algorithm->name() << std::endl;
 								algorithm->reset();
 						}
 				}

@@ -38,8 +38,9 @@ void QuickSort::QuickSortTlk(int low, int high)
 size_t QuickSort::find_pivot_index(size_t pivot, int low, int high)
 {
 		// Bring <high> element to its correct position and return that position
-		int iSmaller = low - 1;							// When looping this var represents the index whose value bigger then pivot's;
-																				// After looping finished it stores the last element whose value is smaller then pivot's
+		
+		int iSmaller = low - 1;			// When looping this var represents the index whose value bigger then pivot's;
+																// After looping finished it stores the last element whose value is smaller then pivot's
 		int key = myArray[pivot];
 		for (int i = low; i <= high; i++)
 		{

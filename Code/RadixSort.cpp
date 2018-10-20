@@ -32,7 +32,7 @@ long long RadixSort::sort(size_t percent)
 
 void RadixSort::RadixTlk(size_t temp_size, const int flag, int n)
 {
-		std::vector<int> vCategory[19];
+		vector<int> vCategory[19];
 
 		if (flag / n <= 0)	return;
 
@@ -58,7 +58,7 @@ void RadixSort::RadixTlk(size_t temp_size, const int flag, int n)
 		RadixTlk(temp_size, flag, n * 10);
 }
 
-std::string RadixSort::name() const
+string RadixSort::name() const
 {
-		return std::string("RadixSort");
+		return string("RadixSort");
 }

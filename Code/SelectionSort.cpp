@@ -31,7 +31,7 @@ long long SelectionSort::sort(size_t percent)
 		auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
 		return elapsed.count();
 }
-std::string SelectionSort::name() const
+string SelectionSort::name() const
 {
-		return std::string("SelectionSort");
+		return string("SelectionSort");
 }

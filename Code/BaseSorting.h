@@ -6,13 +6,16 @@
 #include <iostream>
 #include <chrono>
 
+using std::string;
+using std::vector;
+
 class BaseSorting
 {
 public:
-		BaseSorting(size_t n = 0) : size(n) { myArray = std::vector<int>(size, 0); }
-		BaseSorting(const std::vector<int>&);
+		BaseSorting(size_t n = 0) : size(n) { myArray = vector<int>(size, 0); }
+		BaseSorting(const vector<int>&);
 		BaseSorting(const int*, size_t);
-		BaseSorting(const std::string&);
+		BaseSorting(const string&);
 		virtual ~BaseSorting() {}
 
 		// elements assigment
@@ -22,14 +25,16 @@ public:
 
 		// modify array order
 		void reverse();
+		inline void resize(size_t new_size) { size = new_size; myArray.resize(size); }
 		virtual long long sort(size_t = 100) = 0;
 		void reset();
+
 		friend std::ostream& operator<<(std::ostream&, const BaseSorting&);
 		inline size_t length() const { return size; }
-		virtual std::string name() const = 0;
+		virtual string name() const = 0;
 
 protected:
-		std::vector<int> myArray;
+		vector<int> myArray;
 		size_t size;
 };
 

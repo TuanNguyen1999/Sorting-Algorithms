@@ -4,14 +4,14 @@
 #include <cmath>
 #include <iomanip>
 
-BaseSorting::BaseSorting(const std::vector<int>& vec) : size(vec.size()), myArray(vec) {}
+BaseSorting::BaseSorting(const vector<int>& vec) : size(vec.size()), myArray(vec) {}
 
-BaseSorting::BaseSorting(const std::string &file_name) : size(0)
+BaseSorting::BaseSorting(const string &file_name) : size(0)
 {
 		using std::ifstream;
-		std::string fn;
+		string fn;
 		size_t pos = file_name.rfind(".txt");
-		(pos != std::string::npos) ? fn = file_name : fn = file_name + std::string(".txt");
+		(pos != string::npos) ? fn = file_name : fn = file_name + string(".txt");
 		ifstream rf(fn);
 		if (!rf.is_open())
 		{
@@ -19,7 +19,7 @@ BaseSorting::BaseSorting(const std::string &file_name) : size(0)
 				return;
 		}
 		//	WARNING!!!! Viet theo cau truc file cau de bai
-		std::string ignore;
+		string ignore;
 		std::getline(rf, ignore);
 		//
 		while(rf.good())
@@ -30,11 +30,6 @@ BaseSorting::BaseSorting(const std::string &file_name) : size(0)
 						myArray.push_back(num);
 						size++;
 				}
-				//else
-				//{
-				//		rf.clear();
-				//		rf.ignore();
-				//}
 		}
 		if (!rf.eof())
 		{
